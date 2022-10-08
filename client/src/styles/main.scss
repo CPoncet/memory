@@ -4,5 +4,9 @@
 
   .recto {
     position: absolute;
+
+    &.hidden {
+      display: none;
+    }
   }
 }

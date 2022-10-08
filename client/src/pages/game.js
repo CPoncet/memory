@@ -6,11 +6,12 @@ const Game = () => {
   const cards = useCards();
   const [clickCount, setClickCount] = useState(0);
   const [cardsList, setCardsList] = useState(cardsName);
-  const [firstFruit, setFirstFruit] = useState('');
+  //const [firstFruit, setFirstFruit] = useState({});
+  const [selectedFruits, setSelectedFruits] = useState([]);
 
-  const handleCardClick = (fruit) => {
+  const handleCardClick = (detail) => {
     // Si la paire de fruits a déjà été trouvée, on stoppe l'event onClick
-    if (!cardsList.includes(fruit)) {
+    if (!cardsList.find((el) => el.fruit === detail.fruit)) {
       return;
     }
 
@@ -18,21 +19,37 @@ const Game = () => {
     switch (clickCount) {
       case 0:
         setClickCount(1);
-        setFirstFruit(fruit);
+        //setFirstFruit(detail);
+        const joinedFirstFruit = [...selectedFruits, detail];
+        setSelectedFruits(joinedFirstFruit);
+        console.log(selectedFruits);
         break;
       case 1:
-        setClickCount(0);
-        if (firstFruit === fruit) {
-          const index = cardsList.findIndex((el) => el === fruit);
-          cardsList.splice(index, 1);
-          setCardsList(cardsList);
+        setClickCount(2);
+        const joinedFruits = [...selectedFruits, detail];
+        setSelectedFruits(joinedFruits);
+
+        if (
+          joinedFruits[0].fruit === joinedFruits[1].fruit &&
+          joinedFruits[0].occurence !== joinedFruits[1].occurence
+        ) {
+          const newCardsList = cardsList.filter(
+            (card) => card !== joinedFruits[0] && card !== joinedFruits[1]
+          );
+          setCardsList(newCardsList);
         }
+        setTimeout(() => {
+          setClickCount(0);
+          // setFirstFruit('');
+          setSelectedFruits([]);
+        }, 1000);
         break;
       default:
-        alert('unknown error');
+        break;
     }
   };
-  console.log(cardsList);
+  console.log('outside', selectedFruits);
+  console.log(cardsList.length);
 
   return (
     <>
@@ -41,11 +58,14 @@ const Game = () => {
         {cards.map((card, index) => (
           <div
             key={`card-${index}`}
-            onClick={() => handleCardClick(card.fruit)}
+            onClick={() => handleCardClick(card.detail)}
           >
             <Card
               coords={card.coords}
-              found={cardsList.includes(card.fruit) ? true : false}
+              show={
+                selectedFruits.find((el) => el === card.detail) ? true : false
+              }
+              found={cardsList.find((el) => el === card.detail) ? false : true}
             />
           </div>
         ))}

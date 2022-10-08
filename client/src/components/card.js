@@ -1,6 +1,6 @@
 import Canvas from './canvas';
 
-const Card = ({ coords }) => {
+const Card = ({ coords, show, found }) => {
   const drawFruit = (ctx) => {
     const image = new Image();
     image.src = 'cards.png';
@@ -18,7 +18,10 @@ const Card = ({ coords }) => {
 
   return (
     <div className="card">
-      <Canvas className="recto" draw={drawCard} />
+      <Canvas
+        className={`recto ${show || found ? 'hidden' : ''}`}
+        draw={drawCard}
+      />
       <Canvas className="verso" draw={drawFruit} />
     </div>
   );
