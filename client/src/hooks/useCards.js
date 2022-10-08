@@ -33,8 +33,6 @@ const useCards = () => {
       cards.push({ coords: { x, y }, fruit: cardsName[i] });
     }
 
-    console.log(cards);
-
     return shuffleCards(cards);
   };
 

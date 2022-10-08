@@ -1,4 +1,8 @@
 .cards-grid {
   display: grid;
   grid-template: auto / repeat(6, 1fr);
+
+  .recto {
+    position: absolute;
+  }
 }

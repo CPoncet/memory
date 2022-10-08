@@ -1,7 +1,7 @@
 import Canvas from './canvas';
 
 const Card = ({ coords }) => {
-  const draw = (ctx) => {
+  const drawFruit = (ctx) => {
     const image = new Image();
     image.src = 'cards.png';
 
@@ -10,10 +10,16 @@ const Card = ({ coords }) => {
     };
   };
 
+  const drawCard = (ctx) => {
+    ctx.rect(0, 0, 100, 100);
+    ctx.fillStyle = '#000000';
+    ctx.fill();
+  };
+
   return (
     <div className="card">
-      <div className="recto">Recto</div>
-      <Canvas draw={draw} />
+      <Canvas className="recto" draw={drawCard} />
+      <Canvas className="verso" draw={drawFruit} />
     </div>
   );
 };
