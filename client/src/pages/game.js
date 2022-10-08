@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Card from '../components/card';
+import Card from '../components/game/card';
 import Modal from '../components/game/modal';
 import Timer from '../components/game/timer';
 import useCards, { cardsName } from '../hooks/useCards';
@@ -9,7 +9,7 @@ const Game = () => {
   const cards = useCards();
   const scores = useScores();
   // Init timer in seconds
-  const initialTimer = 5;
+  const initialTimer = 60;
   const [timeLeft, setTimeLeft] = useState(initialTimer);
   const [totalTime, setTotalTime] = useState(0);
 
