@@ -1,7 +1,10 @@
+import { memo } from 'react';
 import Canvas from './canvas';
 
-const Card = ({ coords }) => {
-  const draw = (ctx) => {
+// On demande à React de mémoriser la carte pour éviter
+// un re-rendu systématique des cartes (provoqué par le timer)
+const Card = memo(({ coords, show, found }) => {
+  const drawFruit = (ctx) => {
     const image = new Image();
     image.src = 'cards.png';
 
@@ -10,12 +13,21 @@ const Card = ({ coords }) => {
     };
   };
 
+  const drawCard = (ctx) => {
+    ctx.rect(0, 0, 100, 100);
+    ctx.fillStyle = '#000000';
+    ctx.fill();
+  };
+
   return (
     <div className="card">
-      <div className="recto">Recto</div>
-      <Canvas draw={draw} />
+      <Canvas
+        className={`recto ${show || found ? 'hidden' : ''}`}
+        draw={drawCard}
+      />
+      <Canvas className="verso" draw={drawFruit} />
     </div>
   );
-};
+});
 
 export default Card;
