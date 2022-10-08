@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
 import Card from '../components/card';
-import Timer from '../components/timer';
+import Modal from '../components/game/modal';
+import Timer from '../components/game/timer';
 import useCards, { cardsName } from '../hooks/useCards';
+import useScores from '../hooks/useScores';
 
 const Game = () => {
   const cards = useCards();
-
+  const scores = useScores();
   // Init timer in seconds
-  const initialTimer = 360;
+  const initialTimer = 5;
   const [timeLeft, setTimeLeft] = useState(initialTimer);
+  const [totalTime, setTotalTime] = useState(0);
 
   const [won, setWon] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [clickCount, setClickCount] = useState(0);
   const [cardsList, setCardsList] = useState(cardsName);
@@ -49,7 +53,9 @@ const Game = () => {
           setCardsList(newCardsList);
 
           if (!newCardsList.length) {
+            setTotalTime(initialTimer - timeLeft);
             setWon(true);
+            setShowModal(true);
           }
 
           setClickCount(0);
@@ -78,17 +84,23 @@ const Game = () => {
 
   useEffect(() => {
     if (won) {
-      alert('gagné en ' + (initialTimer - timeLeft) + 's');
+      scores.addScore({ username: localStorage.username, score: totalTime });
     }
-  }, [timeLeft, won]);
+    if (timeLeft <= 0) {
+      setShowModal(true);
+    }
+  }, [timeLeft, won, scores, totalTime]);
 
   return (
     <>
-      <h1>Il reste {cardsList.length / 2} paires à trouver</h1>
-      <div className="cards-grid">
-        {!won
-          ? timeLeft > 0
-            ? cards.map((card, index) => (
+      <Modal won={won} show={showModal} totalTime={totalTime} />
+
+      {!won ? (
+        timeLeft > 0 ? (
+          <div>
+            <h1>Il reste {cardsList.length / 2} paires à trouver</h1>
+            <div className="cards-grid">
+              {cards.map((card, index) => (
                 <div
                   key={`card-${index}`}
                   onClick={() => !disableClick && handleCardClick(card.detail)}
@@ -105,16 +117,17 @@ const Game = () => {
                     }
                   />
                 </div>
-              ))
-            : 'Perdu'
-          : 'Gagné'}
-      </div>
-      <Timer
-        initialTimer={initialTimer}
-        timeLeft={timeLeft}
-        setTimeLeft={setTimeLeft}
-        won={won}
-      />
+              ))}
+            </div>
+            <Timer
+              initialTimer={initialTimer}
+              timeLeft={timeLeft}
+              setTimeLeft={setTimeLeft}
+              won={won}
+            />
+          </div>
+        ) : null
+      ) : null}
     </>
   );
 };
