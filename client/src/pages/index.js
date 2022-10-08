@@ -15,21 +15,30 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="home">
+      <img src="logo-no-background.svg" alt="logo" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="username">Nom :</label>
+          <label htmlFor="username">Nom</label>
           <input
             type="text"
             id="username"
             defaultValue={localStorage.username}
             {...register('username', {
-              required: true,
+              required: {
+                message: 'Ce champ est requis',
+                value: true,
+              },
+              pattern: {
+                message:
+                  'Veuillez insérer uniquement des lettres et des chiffres',
+                value: /^[a-zA-Z0-9]+$/i,
+              },
             })}
           />
         </div>
-        {errors.username && <span role="alert">Ce champ est requis</span>}
-        <div>
+        {errors.username && <span role="alert">{errors.username.message}</span>}
+        <div className="btn-submit">
           <button>Jouer</button>
         </div>
       </form>

@@ -175,8 +175,7 @@ const useCards = () => {
         }
       }
 
-      //return shuffleCards(cards);
-      return cards;
+      return shuffleCards(cards);
     };
 
     setCards(generateListOfCards());

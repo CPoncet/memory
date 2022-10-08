@@ -9,7 +9,7 @@ const Game = () => {
   const cards = useCards();
   const scores = useScores();
   // Init timer in seconds
-  const initialTimer = 60;
+  const initialTimer = 360;
   const [timeLeft, setTimeLeft] = useState(initialTimer);
   const [totalTime, setTotalTime] = useState(0);
 
@@ -92,30 +92,35 @@ const Game = () => {
   }, [timeLeft, won, scores, totalTime]);
 
   return (
-    <>
+    <div className="game container mx-auto">
       <Modal won={won} show={showModal} totalTime={totalTime} />
 
       {!won ? (
         timeLeft > 0 ? (
-          <div>
-            <h1>Il reste {cardsList.length / 2} paires à trouver</h1>
+          <div className="game-holder">
             <div className="cards-grid">
               {cards.map((card, index) => (
-                <div
-                  key={`card-${index}`}
-                  onClick={() => !disableClick && handleCardClick(card.detail)}
-                >
-                  <Card
-                    coords={card.coords}
-                    show={
-                      selectedFruits.find((el) => el === card.detail)
-                        ? true
-                        : false
+                <div key={`card-${index}`}>
+                  <div
+                    className="card-holder"
+                    onClick={() =>
+                      !disableClick && handleCardClick(card.detail)
                     }
-                    found={
-                      cardsList.find((el) => el === card.detail) ? false : true
-                    }
-                  />
+                  >
+                    <Card
+                      coords={card.coords}
+                      show={
+                        selectedFruits.find((el) => el === card.detail)
+                          ? true
+                          : false
+                      }
+                      found={
+                        cardsList.find((el) => el === card.detail)
+                          ? false
+                          : true
+                      }
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -128,7 +133,7 @@ const Game = () => {
           </div>
         ) : null
       ) : null}
-    </>
+    </div>
   );
 };
 

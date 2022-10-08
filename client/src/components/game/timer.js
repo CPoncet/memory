@@ -7,7 +7,7 @@ const Timer = ({ initialTimer, timeLeft, setTimeLeft, won }) => {
     const moveTimer = (timeLeft) => {
       const timer = timerRef.current;
       const timerPercent = (timeLeft * 100) / initialTimer;
-      timer.style.width = timerPercent + '%';
+      timer.style.height = timerPercent + '%';
     };
     if (timeLeft > 0 && !won) {
       let interval;
@@ -23,8 +23,12 @@ const Timer = ({ initialTimer, timeLeft, setTimeLeft, won }) => {
   }, [timeLeft, won, setTimeLeft, initialTimer]);
 
   return (
-    <div className="timer-wrapper">
-      <div ref={timerRef} className="timer"></div>
+    <div className="timer-holder">
+      <div className="timer-wrapper">
+        <div ref={timerRef} className="timer">
+          <div className="timeleft">{timeLeft}</div>
+        </div>
+      </div>
     </div>
   );
 };
