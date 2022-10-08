@@ -3,13 +3,12 @@ import { useEffect, useRef } from 'react';
 const Timer = ({ initialTimer, timeLeft, setTimeLeft, won }) => {
   const timerRef = useRef(null);
 
-  const moveTimer = (timeLeft) => {
-    const timer = timerRef.current;
-    const timerPercent = (timeLeft * 100) / initialTimer;
-    timer.style.width = timerPercent + '%';
-  };
-
   useEffect(() => {
+    const moveTimer = (timeLeft) => {
+      const timer = timerRef.current;
+      const timerPercent = (timeLeft * 100) / initialTimer;
+      timer.style.width = timerPercent + '%';
+    };
     if (timeLeft > 0 && !won) {
       let interval;
       interval = setInterval(() => {
@@ -21,7 +20,7 @@ const Timer = ({ initialTimer, timeLeft, setTimeLeft, won }) => {
     if (timeLeft === 0) {
       moveTimer(timeLeft);
     }
-  }, [timeLeft, won]);
+  }, [timeLeft, won, setTimeLeft, initialTimer]);
 
   return (
     <div className="timer-wrapper">

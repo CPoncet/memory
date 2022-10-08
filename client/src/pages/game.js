@@ -6,18 +6,22 @@ import useCards, { cardsName } from '../hooks/useCards';
 const Game = () => {
   const cards = useCards();
 
-  const initialTimer = 60;
-
   // Init timer in seconds
+  const initialTimer = 360;
   const [timeLeft, setTimeLeft] = useState(initialTimer);
+
   const [won, setWon] = useState(false);
 
   const [clickCount, setClickCount] = useState(0);
   const [cardsList, setCardsList] = useState(cardsName);
-  //const [firstFruit, setFirstFruit] = useState({});
   const [selectedFruits, setSelectedFruits] = useState([]);
+  const [disableClick, setDisableClick] = useState(false);
 
   const handleCardClick = (detail) => {
+    if (clickCount > 2) {
+      resetMatch();
+      return;
+    }
     // Si la paire de fruits a déjà été trouvée, on stoppe l'event onClick
     if (!cardsList.find((el) => el.fruit === detail.fruit)) {
       return;
@@ -53,16 +57,23 @@ const Game = () => {
         } else {
           // Si la paire n'est pas bonne on met un timeout de 0.5s pour permettre
           // de figer les deux cartes temporairement et donc mémoriser leur emplacement
-          setTimeout(() => {
-            setClickCount(0);
-            setSelectedFruits([]);
-          }, 500);
+          resetMatch();
         }
 
         break;
       default:
+        resetMatch();
         break;
     }
+  };
+
+  const resetMatch = () => {
+    setDisableClick(true);
+    setTimeout(() => {
+      setClickCount(0);
+      setSelectedFruits([]);
+      setDisableClick(false);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -70,7 +81,6 @@ const Game = () => {
       alert('gagné en ' + (initialTimer - timeLeft) + 's');
     }
   }, [timeLeft, won]);
-  console.log(timeLeft);
 
   return (
     <>
@@ -81,7 +91,7 @@ const Game = () => {
             ? cards.map((card, index) => (
                 <div
                   key={`card-${index}`}
-                  onClick={() => handleCardClick(card.detail)}
+                  onClick={() => !disableClick && handleCardClick(card.detail)}
                 >
                   <Card
                     coords={card.coords}

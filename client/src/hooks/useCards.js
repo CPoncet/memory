@@ -148,27 +148,6 @@ export const cardsName = [
 ];
 
 const useCards = () => {
-  const generateListOfCards = () => {
-    let cards = [];
-
-    for (let i = 0; i < cardsName.length; i++) {
-      if (i >= cardsName.length / 2) {
-        const x = 0;
-        // Si on arrive à la moitié du tableau de fruits,
-        // on repart au début des coordonnées de l'image
-        const y = i * 100 - 1800;
-        cards.push({ coords: { x, y }, detail: cardsName[i] });
-      } else {
-        const x = 0;
-        const y = i * 100;
-        cards.push({ coords: { x, y }, detail: cardsName[i] });
-      }
-    }
-
-    //return shuffleCards(cards);
-    return cards;
-  };
-
   const shuffleCards = (cardsArray) => {
     return cardsArray
       .map((card) => ({ card, sort: Math.random() }))
@@ -179,6 +158,26 @@ const useCards = () => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
+    const generateListOfCards = () => {
+      let cards = [];
+
+      for (let i = 0; i < cardsName.length; i++) {
+        if (i >= cardsName.length / 2) {
+          const x = 0;
+          // Si on arrive à la moitié du tableau de fruits,
+          // on repart au début des coordonnées de l'image
+          const y = i * 100 - 1800;
+          cards.push({ coords: { x, y }, detail: cardsName[i] });
+        } else {
+          const x = 0;
+          const y = i * 100;
+          cards.push({ coords: { x, y }, detail: cardsName[i] });
+        }
+      }
+
+      return shuffleCards(cards);
+    };
+
     setCards(generateListOfCards());
   }, []);
 
