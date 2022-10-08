@@ -4,9 +4,12 @@ class ScoreController {
   async addScore(req, res) {
     const { score } = req.body;
 
-    const addedScore = await knex('scores').insert(score);
-
-    res.status(200).json({ addedScore });
+    try {
+      const addedScore = await knex('scores').insert(score);
+      return res.status(201).json({ message: 'Score successfully added' });
+    } catch (err) {
+      return res.status(400).json({ err });
+    }
   }
 
   async getScores(req, res) {
