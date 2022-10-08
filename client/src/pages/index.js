@@ -1,5 +1,11 @@
+import { Link } from 'react-router-dom';
+
 const Home = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Link to="/game">Jouer</Link>
+    </div>
+  );
 };
 
 export default Home;

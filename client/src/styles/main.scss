@@ -10,3 +10,16 @@
     }
   }
 }
+
+.timer-wrapper {
+  background: #2d3436;
+  display: flex;
+  align-items: center;
+
+  .timer {
+    width: 100%;
+    background: #d63031;
+    height: 2em;
+    transition: width 0.2s ease-in-out;
+  }
+}

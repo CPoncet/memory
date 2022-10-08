@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Card from '../components/card';
+import Timer from '../components/timer';
 import useCards, { cardsName } from '../hooks/useCards';
 
 const Game = () => {
@@ -46,10 +47,18 @@ const Game = () => {
           if (!newCardsList.length) {
             setWon(true);
           }
+
+          setClickCount(0);
+          setSelectedFruits([]);
+        } else {
+          // Si la paire n'est pas bonne on met un timeout de 0.5s pour permettre
+          // de figer les deux cartes temporairement et donc mémoriser leur emplacement
+          setTimeout(() => {
+            setClickCount(0);
+            setSelectedFruits([]);
+          }, 500);
         }
-        // Timeout pour figer les cartes pendant 1s, puis les retourner
-        setClickCount(0);
-        setSelectedFruits([]);
+
         break;
       default:
         break;
@@ -60,13 +69,8 @@ const Game = () => {
     if (won) {
       alert('gagné en ' + (initialTimer - timeLeft) + 's');
     }
-
-    if (timeLeft > 0 && !won) {
-      let interval;
-      interval = setInterval(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearInterval(interval);
-    }
   }, [timeLeft, won]);
+  console.log(timeLeft);
 
   return (
     <>
@@ -95,7 +99,12 @@ const Game = () => {
             : 'Perdu'
           : 'Gagné'}
       </div>
-      <h1>Il reste {timeLeft} secondes</h1>
+      <Timer
+        initialTimer={initialTimer}
+        timeLeft={timeLeft}
+        setTimeLeft={setTimeLeft}
+        won={won}
+      />
     </>
   );
 };

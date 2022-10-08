@@ -1,6 +1,9 @@
+import { memo } from 'react';
 import Canvas from './canvas';
 
-const Card = ({ coords, show, found }) => {
+// On demande à React de mémoriser la carte pour éviter
+// un re-rendu systématique des cartes (provoqué par le timer)
+const Card = memo(({ coords, show, found }) => {
   const drawFruit = (ctx) => {
     const image = new Image();
     image.src = 'cards.png';
@@ -25,6 +28,6 @@ const Card = ({ coords, show, found }) => {
       <Canvas className="verso" draw={drawFruit} />
     </div>
   );
-};
+});
 
 export default Card;
