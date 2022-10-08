@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "nodemon app"
+  },
+  "dependencies": {
+    "better-sqlite3": "^7.6.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "knex": "^2.3.0"
+  }
+}
