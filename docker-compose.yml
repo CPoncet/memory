@@ -20,6 +20,7 @@ services:
       - db
 
   db:
-    image: nouchka/sqlite3:latest
+    tty: true
+    image: keinos/sqlite3:latest
     container_name: database-docker
     restart: always
