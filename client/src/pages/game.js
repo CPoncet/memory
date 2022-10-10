@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Card from '../components/game/card';
 import Modal from '../components/game/modal';
 import Timer from '../components/game/timer';
-import useCards, { cardsName } from '../hooks/useCards';
+import useCards from '../hooks/useCards';
 import useScores from '../hooks/useScores';
 
 const Game = () => {
@@ -17,7 +17,7 @@ const Game = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [clickCount, setClickCount] = useState(0);
-  const [cardsList, setCardsList] = useState(cardsName);
+  const [cardsList, setCardsList] = useState(cards);
   const [selectedFruits, setSelectedFruits] = useState([]);
   const [disableClick, setDisableClick] = useState(false);
 
@@ -26,8 +26,9 @@ const Game = () => {
       resetMatch();
       return;
     }
+
     // Si la paire de fruits a déjà été trouvée, on stoppe l'event onClick
-    if (!cardsList.find((el) => el.fruit === detail.fruit)) {
+    if (!cardsList.find((el) => el.detail.fruit === detail.fruit)) {
       return;
     }
 
@@ -48,7 +49,8 @@ const Game = () => {
           joinedFruits[0].occurence !== joinedFruits[1].occurence
         ) {
           const newCardsList = cardsList.filter(
-            (card) => card !== joinedFruits[0] && card !== joinedFruits[1]
+            (card) =>
+              card.detail !== joinedFruits[0] && card.detail !== joinedFruits[1]
           );
           setCardsList(newCardsList);
 
@@ -115,7 +117,7 @@ const Game = () => {
                           : false
                       }
                       found={
-                        cardsList.find((el) => el === card.detail)
+                        cardsList.find((el) => el.detail === card.detail)
                           ? false
                           : true
                       }

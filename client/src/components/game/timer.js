@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import isMobileBrowser from '../../services/isMobileBrowser';
 
 const Timer = ({ initialTimer, timeLeft, setTimeLeft, won }) => {
   const timerRef = useRef(null);
@@ -7,7 +8,12 @@ const Timer = ({ initialTimer, timeLeft, setTimeLeft, won }) => {
     const moveTimer = (timeLeft) => {
       const timer = timerRef.current;
       const timerPercent = (timeLeft * 100) / initialTimer;
-      timer.style.height = timerPercent + '%';
+
+      if (isMobileBrowser()) {
+        timer.style.width = timerPercent + '%';
+      } else {
+        timer.style.height = timerPercent + '%';
+      }
     };
     if (timeLeft > 0 && !won) {
       let interval;

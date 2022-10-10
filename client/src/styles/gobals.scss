@@ -12,6 +12,10 @@ body {
 
 .container {
   max-width: 1300px;
+
+  @media screen and (max-width: 1300px) {
+    padding: 0 1em;
+  }
 }
 
 .mx-auto {
@@ -31,6 +35,9 @@ a {
     background: $white;
     padding: 1em 0;
     min-height: 5vh;
+    @media screen and (max-width: 768px) {
+      min-height: 2vh;
+    }
 
     div {
       display: flex;
@@ -40,11 +47,19 @@ a {
       img {
         height: 3em;
         filter: brightness(0%);
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
       }
 
       nav {
         display: flex;
         gap: 2em;
+
+        @media screen and (max-width: 768px) {
+          width: 100%;
+          justify-content: space-around;
+        }
       }
     }
   }
