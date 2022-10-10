@@ -200,8 +200,7 @@ const useCards = () => {
       }
     }
 
-    // return shuffleCards(cards);
-    return cards;
+    return shuffleCards(cards);
   };
 
   const [cards] = useState(generateListOfCards());
