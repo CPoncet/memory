@@ -1,0 +1,56 @@
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    width: 400px;
+    margin-top: 2em;
+    margin-bottom: 4em;
+
+    @media screen and (max-width: 768px) {
+      width: 350px;
+    }
+  }
+
+  h2,
+  li {
+    color: $white;
+  }
+
+  form {
+    label {
+      color: $white;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5em;
+      text-transform: uppercase;
+      font-size: x-large;
+    }
+
+    input {
+      font-size: x-large;
+      border-radius: 20px;
+      background: $white;
+      border: none;
+      padding: 0.5em 1em;
+      font-family: 'Nunito Sans', sans-serif;
+      margin-bottom: 0.5em;
+    }
+
+    span {
+      color: $white;
+    }
+
+    .btn-submit {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2em;
+
+      button {
+        @include button;
+      }
+    }
+  }
+}
