@@ -47,7 +47,7 @@ const Game = () => {
    * @returns void
    */
   const handleCardClick = (detail) => {
-    if (clickCount > 2) {
+    if (clickCount > 2 || selectedFruits.length > 2 || disableClick) {
       resetMatch();
       return;
     }
@@ -130,9 +130,7 @@ const Game = () => {
                 <div key={`card-${index}`}>
                   <div
                     className="card-holder"
-                    onClick={() =>
-                      !disableClick && handleCardClick(card.detail)
-                    }
+                    onClick={() => handleCardClick(card.detail)}
                   >
                     <Card
                       coords={card.coords}
