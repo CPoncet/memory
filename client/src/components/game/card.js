@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import Canvas from './canvas';
 
-// On demande à React de mémoriser la carte pour éviter
-// un re-rendu systématique des cartes (provoqué par le timer)
+// We ask React to memorize the card to avoid
+// a re-render of the cards
 const Card = memo(({ coords, show, found }) => {
   const drawFruit = (ctx) => {
     const image = new Image();

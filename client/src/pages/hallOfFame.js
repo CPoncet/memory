@@ -7,6 +7,7 @@ const HallOfFame = () => {
   const scoreService = useScores();
 
   useEffect(() => {
+    // get the scores from the database
     scoreService.getScores().then(({ data }) => {
       setScores(data.scores.sort((a, b) => a.score - b.score));
     });

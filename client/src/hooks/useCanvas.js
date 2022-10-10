@@ -1,5 +1,12 @@
 import { useLayoutEffect, useRef } from 'react';
 
+/**
+ * Hook to handle HTML5 canvas
+ * & customize what is drawn
+ *
+ * @param {*} draw
+ * @returns
+ */
 const useCanvas = (draw) => {
   const canvasRef = useRef(null);
 

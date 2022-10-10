@@ -1,5 +1,7 @@
 const validators = require('../validators');
 
+// This middleware handles dynamic validation on req.body
+// It allows us to check if the data passed in the body is valid
 module.exports = (model, validator) => {
   if (!validators.hasOwnProperty(model)) {
     throw new Error(`'${model}' does not exist!`);

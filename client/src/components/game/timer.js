@@ -5,6 +5,11 @@ const Timer = ({ initialTimer, timeLeft, setTimeLeft, won }) => {
   const timerRef = useRef(null);
 
   useEffect(() => {
+    /**
+     * Moves the timer visually
+     *
+     * @param {number} timeLeft
+     */
     const moveTimer = (timeLeft) => {
       const timer = timerRef.current;
       const timerPercent = (timeLeft * 100) / initialTimer;
