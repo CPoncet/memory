@@ -44,7 +44,7 @@ const Home = () => {
               pattern: {
                 message:
                   'Veuillez insérer uniquement des lettres et des chiffres',
-                value: /^[a-zA-Z0-9]+$/i,
+                value: /^[A-zÀ-ú]+$/i,
               },
             })}
           />
